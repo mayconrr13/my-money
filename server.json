@@ -1,0 +1,84 @@
+{
+  "transactions": [
+    {
+      "id": "0",
+      "description": "Consulta no médico",
+      "value": 500,
+      "type": "outcome",
+      "category": "health",
+      "createdAt": 1623710853000
+    },
+    {
+      "id": "1",
+      "description": "Desenvolvimento de projeto",
+      "value": 1500,
+      "type": "income",
+      "category": "work",
+      "createdAt": 1623106053000
+    },
+    {
+      "id": "2",
+      "description": "Revisão do carro",
+      "value": 237.45,
+      "type": "outcome",
+      "category": "health",
+      "createdAt": 1596926853000
+    },
+    {
+      "id": "3",
+      "description": "Bônus de produtividade",
+      "value": 2145.89,
+      "type": "income",
+      "category": "salary",
+      "createdAt": 1622587653000
+    },
+    {
+      "id": "94f78454-bfcf-4a28-a78d-5aa55e434161",
+      "description": "lkjhgfds",
+      "value": 130,
+      "type": "outcome",
+      "category": "food",
+      "createdAt": 1623714771867
+    },
+    {
+      "id": "3a619908-de09-42ec-a964-3f3915a30a23",
+      "description": "Salaŕio",
+      "value": 4000,
+      "type": "income",
+      "category": "work",
+      "createdAt": 1623714945212
+    },
+    {
+      "id": "25cea8ca-d8fc-4012-b96e-1d769c1c5736",
+      "description": "wertytrew",
+      "value": 2345,
+      "type": "outcome",
+      "category": "fitness",
+      "createdAt": 1623715015708
+    },
+    {
+      "id": "ea0bc8c0-e229-45a4-a53e-dd1dc802af93",
+      "description": "sdadsd",
+      "value": 234,
+      "type": "outcome",
+      "category": "food",
+      "createdAt": 1623715169864
+    },
+    {
+      "id": "d69af55f-23f4-45da-a5c4-0b2453663b51",
+      "description": "sdfghgh",
+      "value": 345678765,
+      "type": "income",
+      "category": "fitness",
+      "createdAt": 1623715345583
+    },
+    {
+      "id": "f3aabd59-dccb-416d-a2c8-1406c667b83d",
+      "description": "defefeff",
+      "value": 456,
+      "type": "outcome",
+      "category": "food",
+      "createdAt": 1623715391988
+    }
+  ]
+}
