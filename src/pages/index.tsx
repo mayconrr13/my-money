@@ -6,6 +6,8 @@ import { NewTransactionForm } from '../components/NewTransactionForm';
 import { useTransaction } from '../hooks/useTransaction';
 import { Statistcs } from '../components/Statistcs';
 
+import { Container, Content, Button, Header } from '../styles/pages/Home';
+
 export default function Home(): JSX.Element {
   const { transactions } = useTransaction();
 
@@ -22,29 +24,35 @@ export default function Home(): JSX.Element {
   }, [visibleSection]);
 
   return (
-    <>
-      <header>
+    <Container>
+      <Header>
         <div>
-          <button type="button">Nova transação</button>
+          <button type="button">
+            <span>Nova transação</span>
+            <div />
+          </button>
         </div>
-      </header>
+      </Header>
 
-      <main>
-        <NewTransactionForm />
+      <Content>
+        {/* <NewTransactionForm /> */}
 
         <CardSection />
 
-        <button type="button" onClick={handleVisibleSection}>
+        <Button
+          type="button"
+          onClick={handleVisibleSection}
+          visibleSection={visibleSection}
+        >
           <strong>TRANSAÇÕES</strong>
           <span />
           <strong>ESTATÍSTICAS</strong>
-        </button>
+        </Button>
 
         {visibleSection === 'statistcs' && <Statistcs />}
 
         {visibleSection === 'transactions' && (
           <div>
-            <span>Transações</span>
             {transactions &&
               transactions.map(transaction => {
                 return (
@@ -56,7 +64,7 @@ export default function Home(): JSX.Element {
               })}
           </div>
         )}
-      </main>
-    </>
+      </Content>
+    </Container>
   );
 }

@@ -1,3 +1,5 @@
+import { Container } from './styles';
+
 interface TransactionProps {
   transaction: {
     id: string;
@@ -13,8 +15,8 @@ export const TransactionItem = ({
   transaction,
 }: TransactionProps): JSX.Element => {
   return (
-    <div>
-      <img src="" alt={transaction.category} />
+    <Container type={transaction.type}>
+      <img src="/icons/dollar.svg" alt={transaction.category} />
 
       <div>
         <strong>{transaction.description}</strong>
@@ -24,6 +26,6 @@ export const TransactionItem = ({
       <strong>{`${
         transaction.type === 'outcome' ? '- R$' : 'R$'
       } ${transaction.value.toFixed(2)}`}</strong>
-    </div>
+    </Container>
   );
 };
