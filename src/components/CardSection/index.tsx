@@ -14,7 +14,7 @@ export const CardSection = (): JSX.Element => {
 
       <section>
         <h2>SAíDA</h2>
-        <strong>- R$ {financesSummary.outcomes.toFixed(2)}</strong>
+        <strong>- R$ {-financesSummary.outcomes.toFixed(2)}</strong>
         <img src="/icons/arrow.svg" alt="Saída" />
       </section>
 

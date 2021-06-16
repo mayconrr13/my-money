@@ -1,3 +1,6 @@
+import { useMemo } from 'react';
+import { format } from 'date-fns';
+
 import { Container } from './styles';
 
 interface TransactionProps {
@@ -14,13 +17,21 @@ interface TransactionProps {
 export const TransactionItem = ({
   transaction,
 }: TransactionProps): JSX.Element => {
+  const formatedDateAndHour = useMemo(() => {
+    const date = format(new Date(transaction.createdAt), 'dd/MM/y - HH:mm');
+
+    return date;
+  }, [transaction]);
+
   return (
     <Container type={transaction.type}>
-      <img src="/icons/dollar.svg" alt={transaction.category} />
+      <span>
+        <img src="/icons/dollar.svg" alt={transaction.category} />
+      </span>
 
       <div>
         <strong>{transaction.description}</strong>
-        <span>{transaction.createdAt}</span>
+        <span>{formatedDateAndHour}</span>
       </div>
 
       <strong>{`${

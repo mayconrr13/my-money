@@ -71,6 +71,46 @@
       "type": "outcome",
       "category": "food",
       "createdAt": 1623715391988
+    },
+    {
+      "id": "4d2a51ef-b22e-49c3-abe9-eccd9e565534",
+      "description": "Linda cidade na praia",
+      "value": 1000,
+      "type": "outcome",
+      "category": "food",
+      "createdAt": 1623868316234
+    },
+    {
+      "id": "f8a367eb-21bd-4f2e-90dd-a1fb2cb6a4a8",
+      "description": "olha o computador rapaz",
+      "value": 500,
+      "type": "income",
+      "category": "food",
+      "createdAt": 1623868418143
+    },
+    {
+      "id": "745f0ac5-85f7-4ff7-8e35-64033657b1dd",
+      "description": "sdfghgh",
+      "value": 20,
+      "type": "outcome",
+      "category": "health",
+      "createdAt": 1623868486537
+    },
+    {
+      "id": "e87f3cda-586f-4b80-8710-48dfe827bc70",
+      "description": "sdsadsssdsa",
+      "value": 123,
+      "type": "income",
+      "category": "food",
+      "createdAt": 1623870175652
+    },
+    {
+      "id": "b0f170a6-f545-4862-ab08-9640607b617a",
+      "description": "teste",
+      "value": 20,
+      "type": "income",
+      "category": "health",
+      "createdAt": 1623873154464
     }
   ]
 }

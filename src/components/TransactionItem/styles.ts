@@ -8,15 +8,25 @@ export const Container = styled.div<TransactionProps>`
   display: flex;
   align-items: center;
 
-  img {
+  width: 100%;
+
+  > span {
     width: 2.25rem;
     height: 2.25rem;
     border-radius: 50%;
 
     padding: 0.3rem;
     margin-right: 1rem;
-
     background-color: var(--gray);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
   }
 
   div {
@@ -43,5 +53,32 @@ export const Container = styled.div<TransactionProps>`
     color: ${({ type }) => (type === 'income' ? 'var(--green)' : 'var(--red)')};
 
     margin-left: auto;
+  }
+
+  @media (min-width: 800px) {
+    > span {
+      width: 3rem;
+      height: 3rem;
+
+      img {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+    }
+
+    div {
+      strong {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+
+      span {
+        font-size: 0.75rem;
+      }
+    }
+
+    > strong {
+      font-size: 1.25rem;
+    }
   }
 `;

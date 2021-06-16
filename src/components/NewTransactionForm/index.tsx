@@ -1,8 +1,12 @@
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Modal from 'react-modal';
+
 import { useTransaction } from '../../hooks/useTransaction';
+
+import { Header, Form } from './styles';
 
 interface NewTransactionFormData {
   description: string;
@@ -11,9 +15,21 @@ interface NewTransactionFormData {
   category: string;
 }
 
-export const NewTransactionForm = (): JSX.Element => {
+interface FormModalProps {
+  isOpen: boolean;
+  onRequestClose: () => void;
+}
+
+export const NewTransactionForm = ({
+  isOpen,
+  onRequestClose,
+}: FormModalProps): JSX.Element => {
   const { transactions, setTransactions, setGroupTransactionsByDate } =
     useTransaction();
+
+  const [selectedTransactionType, setSelectedTransactionType] = useState<
+    'income' | 'outcome'
+  >('income');
 
   const {
     register,
@@ -43,75 +59,129 @@ export const NewTransactionForm = (): JSX.Element => {
           createdAt: Date.now(),
         };
 
-        await axios.post('http://localhost:3333/transactions', newTransaction);
+        await axios.post(
+          'http://localhost:3000/api/transactions',
+          newTransaction
+        );
 
-        setTransactions([...transactions, newTransaction]);
-        setGroupTransactionsByDate([...transactions, newTransaction]);
+        setTransactions([newTransaction, ...transactions]);
+        setGroupTransactionsByDate([newTransaction, ...transactions]);
+
         reset({
           description: '',
           value: 0,
           type: 'income',
           category: 'default',
         });
+
+        onRequestClose();
         return;
       } catch {
         console.log('Não foi possível adicionar a nova transação');
       }
     },
-    [reset, setGroupTransactionsByDate, setTransactions, transactions]
+    [
+      onRequestClose,
+      reset,
+      setGroupTransactionsByDate,
+      setTransactions,
+      transactions,
+    ]
   );
 
   return (
-    <form onSubmit={handleSubmit(handleFormSubmit)}>
-      <input
-        type="text"
-        placeholder="Descrição"
-        {...register('description', { required: true })}
-      />
-      {errors?.value && 'Por favor, insira uma descrição'}
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
+      ariaHideApp={false}
+      overlayClassName="react-modal-overlay"
+      className="react-modal-content"
+    >
+      <Header>
+        <strong>Nova transação</strong>
+        <button
+          type="button"
+          onClick={() => {
+            onRequestClose();
+            reset({
+              description: '',
+              value: undefined,
+              type: 'income',
+              category: 'default',
+            });
+          }}
+        >
+          +
+        </button>
+      </Header>
 
-      <input
-        type="number"
-        placeholder="Valor"
-        {...register('value', { required: true })}
-      />
-      {errors?.value && 'Por favor, insira um valor válido'}
-
-      <fieldset>
-        <label htmlFor="income">Entrada</label>
-        <input
-          type="radio"
-          id="income"
-          value="income"
-          {...register('type', { required: true })}
-        />
-
-        <label htmlFor="income">Saída</label>
-        <input
-          type="radio"
-          id="outcome"
-          value="outcome"
-          {...register('type', { required: true })}
-        />
-        {errors?.value && 'Selecione um tipo'}
-      </fieldset>
-
-      <select
-        id="category"
-        defaultValue="default"
-        {...register('category', { required: true })}
+      <Form
+        onSubmit={handleSubmit(handleFormSubmit)}
+        selectedTransactionType={selectedTransactionType}
       >
-        <option value="default" disabled>
-          Selecione uma categoria
-        </option>
-        <option value="health">Saúde</option>
-        <option value="food">Alimentação</option>
-        <option value="fitness">Atividades Físicas</option>
-        <option value="work">Trabalho</option>
-      </select>
-      {errors?.value && 'Selecione uma categoria'}
+        {errors?.value && 'Por favor, insira uma descrição'}
+        <input
+          type="text"
+          placeholder="Descrição"
+          {...register('description', { required: true })}
+        />
 
-      <button type="submit">Adicionar transação</button>
-    </form>
+        {errors?.value && 'Por favor, insira um valor válido'}
+        <input
+          type="number"
+          placeholder="Valor"
+          {...register('value', { required: true })}
+        />
+
+        {errors?.value && 'Selecione um tipo de transação'}
+        <fieldset>
+          <button
+            type="button"
+            onClick={() => setSelectedTransactionType('income')}
+          >
+            Entrada
+            <input
+              onClick={() => setSelectedTransactionType('income')}
+              type="radio"
+              id="income"
+              value="income"
+              {...register('type', { required: true })}
+            />
+            <img src="/icons/arrow-form.svg" alt="Entrada" />
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setSelectedTransactionType('outcome')}
+          >
+            Saída
+            <input
+              type="radio"
+              id="outcome"
+              value="outcome"
+              {...register('type', { required: true })}
+            />
+            <img src="/icons/arrow-form.svg" alt="Saída" />
+          </button>
+        </fieldset>
+
+        {errors?.value && 'Selecione uma categoria'}
+        <select
+          id="category"
+          defaultValue="default"
+          {...register('category', { required: true })}
+        >
+          <option value="default" disabled>
+            Selecione uma categoria
+          </option>
+          <option value="health">Saúde</option>
+          <option value="food">Alimentação</option>
+          <option value="fitness">Atividades Físicas</option>
+          <option value="work">Trabalho</option>
+        </select>
+
+        <button type="submit">Adicionar transação</button>
+      </Form>
+    </Modal>
   );
 };

@@ -1,33 +1,45 @@
 import { useCallback, useState } from 'react';
 
 import { CardSection } from '../components/CardSection';
-import { TransactionItem } from '../components/TransactionItem';
+import { TransactionsList } from '../components/TransactionsList';
 import { NewTransactionForm } from '../components/NewTransactionForm';
-import { useTransaction } from '../hooks/useTransaction';
-import { Statistcs } from '../components/Statistcs';
+import { Statistics } from '../components/Statistcs';
 
-import { Container, Content, Button, Header } from '../styles/pages/Home';
+import {
+  Container,
+  Content,
+  Button,
+  Header,
+  AdditionalDetailsSection,
+} from '../styles/pages/Home';
 
 export default function Home(): JSX.Element {
-  const { transactions } = useTransaction();
-
+  const [formModalIsOpen, setFormModalIsOpen] = useState<boolean>(false);
   const [visibleSection, setVisibleSection] = useState<
-    'statistcs' | 'transactions'
+    'statistics' | 'transactions'
   >('transactions');
 
   const handleVisibleSection = useCallback(() => {
-    if (visibleSection === 'statistcs') {
+    if (visibleSection === 'statistics') {
       setVisibleSection('transactions');
     } else {
-      setVisibleSection('statistcs');
+      setVisibleSection('statistics');
     }
   }, [visibleSection]);
+
+  const handleOpenModal = useCallback(() => {
+    setFormModalIsOpen(true);
+  }, []);
+
+  const handleCloseModal = useCallback(() => {
+    setFormModalIsOpen(false);
+  }, []);
 
   return (
     <Container>
       <Header>
         <div>
-          <button type="button">
+          <button type="button" onClick={handleOpenModal}>
             <span>Nova transação</span>
             <div />
           </button>
@@ -35,7 +47,10 @@ export default function Home(): JSX.Element {
       </Header>
 
       <Content>
-        {/* <NewTransactionForm /> */}
+        <NewTransactionForm
+          isOpen={formModalIsOpen}
+          onRequestClose={handleCloseModal}
+        />
 
         <CardSection />
 
@@ -49,21 +64,11 @@ export default function Home(): JSX.Element {
           <strong>ESTATÍSTICAS</strong>
         </Button>
 
-        {visibleSection === 'statistcs' && <Statistcs />}
+        <AdditionalDetailsSection>
+          <TransactionsList visibleSection={visibleSection} />
 
-        {visibleSection === 'transactions' && (
-          <div>
-            {transactions &&
-              transactions.map(transaction => {
-                return (
-                  <TransactionItem
-                    transaction={transaction}
-                    key={transaction.id}
-                  />
-                );
-              })}
-          </div>
-        )}
+          <Statistics visibleSection={visibleSection} />
+        </AdditionalDetailsSection>
       </Content>
     </Container>
   );

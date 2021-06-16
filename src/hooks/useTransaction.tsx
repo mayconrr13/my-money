@@ -8,7 +8,6 @@ import {
   useMemo,
   useState,
 } from 'react';
-import { sortTransactionsByDate } from '../utils/transactionsOperations';
 
 interface TransactionProviderProps {
   children: ReactNode;
@@ -111,12 +110,12 @@ export const TransactionProvider = ({
 
   useEffect(() => {
     const getTransactions = async (): Promise<void> => {
-      const response = await axios.get('http://localhost:3333/transactions');
+      const response = await axios.get<TransactionProps[]>(
+        'http://localhost:3000/api/transactions'
+      );
 
-      const sortedTransactionsByDate = sortTransactionsByDate(response.data);
-
-      setTransactions([...sortedTransactionsByDate]);
-      setGroupTransactionsByDate([...sortedTransactionsByDate]);
+      setTransactions([...response.data]);
+      setGroupTransactionsByDate([...response.data]);
     };
 
     getTransactions();

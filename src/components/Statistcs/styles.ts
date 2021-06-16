@@ -1,21 +1,35 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
-export const Container = styled.div`
+interface ContainerProps {
+  visibleSection: 'statistics' | 'transactions';
+}
+
+export const Container = styled.div<ContainerProps>`
   width: 100%;
+  max-width: 500px;
   padding: 0 1.5rem;
 
-  display: flex;
+  display: ${({ visibleSection }) =>
+    visibleSection === 'statistics' ? 'flex' : 'none'};
   flex-direction: column;
   align-items: center;
 
   > span {
     display: block;
 
-    width: 200px;
-    height: 200px;
+    width: 80vw;
+    max-width: 300px;
+    min-width: 200px;
+    height: 80vw;
+    max-height: 300px;
+    min-height: 200px;
     border-radius: 50%;
 
     background-color: tomato;
+  }
+
+  @media (min-width: 800px) {
+    display: flex;
   }
 `;
 
@@ -43,6 +57,12 @@ export const ButtonsGroup = styled.div<ButtonsGroupProps>`
     &:nth-child(${({ selectedRange }) => selectedRange}) {
       color: var(--yellow);
       font-weight: 700;
+    }
+  }
+
+  @media (min-width: 800px) {
+    button {
+      font-size: 1rem;
     }
   }
 `;
@@ -96,6 +116,19 @@ export const Summary = styled.div`
     strong {
       font-size: 1rem;
       color: var(--text);
+    }
+  }
+
+  @media (min-width: 800px) {
+    > div {
+      span {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+
+      strong {
+        font-size: 1.25rem;
+      }
     }
   }
 `;

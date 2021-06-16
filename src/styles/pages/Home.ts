@@ -57,7 +57,7 @@ export const Content = styled.main`
 `;
 
 interface ButtonProps {
-  visibleSection: 'statistcs' | 'transactions';
+  visibleSection: 'statistics' | 'transactions';
 }
 
 export const Button = styled.button<ButtonProps>`
@@ -105,5 +105,16 @@ export const Button = styled.button<ButtonProps>`
 
   @media (min-width: 800px) {
     display: none;
+  }
+`;
+
+export const AdditionalDetailsSection = styled.section`
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+
+  @media (min-width: 800px) {
+    justify-content: space-between;
   }
 `;

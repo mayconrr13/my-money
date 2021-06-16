@@ -3,7 +3,13 @@ import { useTransaction } from '../../hooks/useTransaction';
 
 import { Container, ButtonsGroup, Summary } from './styles';
 
-export const Statistcs = (): JSX.Element => {
+interface StatisticsProps {
+  visibleSection: 'statistics' | 'transactions';
+}
+
+export const Statistics = ({
+  visibleSection,
+}: StatisticsProps): JSX.Element => {
   const {
     handleTransactionsGroupedByDateRange,
     groupedTransactionsByDate,
@@ -13,7 +19,7 @@ export const Statistcs = (): JSX.Element => {
   const [selectedRange, setSelectedRange] = useState<number>(1);
 
   return (
-    <Container>
+    <Container visibleSection={visibleSection}>
       <ButtonsGroup selectedRange={selectedRange}>
         <button
           type="button"
@@ -72,7 +78,7 @@ export const Statistcs = (): JSX.Element => {
 
         <div>
           <span>SAÍDA</span>
-          <strong>- R$ {groupedFinancesSummary.outcomes.toFixed(2)}</strong>
+          <strong>- R$ {-groupedFinancesSummary.outcomes.toFixed(2)}</strong>
         </div>
       </Summary>
     </Container>

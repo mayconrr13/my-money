@@ -5,22 +5,25 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "server": "json-server server.json -p 3333"
+    "start": "next start"
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "date-fns": "^2.22.1",
+    "firebase": "^8.6.7",
     "json-server": "^0.16.3",
     "next": "10.2.3",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "react-hook-form": "^7.8.4",
+    "react-modal": "^3.14.3",
     "styled-components": "^5.3.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/node": "^15.12.1",
     "@types/react": "^17.0.9",
+    "@types/react-modal": "^3.12.0",
     "@types/styled-components": "^5.1.10",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
