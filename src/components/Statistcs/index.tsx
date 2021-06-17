@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useTransaction } from '../../hooks/useTransaction';
+import Charts from '../Chart';
 
 import { Container, ButtonsGroup, Summary } from './styles';
 
@@ -10,11 +11,8 @@ interface StatisticsProps {
 export const Statistics = ({
   visibleSection,
 }: StatisticsProps): JSX.Element => {
-  const {
-    handleTransactionsGroupedByDateRange,
-    groupedTransactionsByDate,
-    groupedFinancesSummary,
-  } = useTransaction();
+  const { handleTransactionsGroupedByDateRange, groupedFinancesSummary } =
+    useTransaction();
 
   const [selectedRange, setSelectedRange] = useState<number>(1);
 
@@ -68,7 +66,7 @@ export const Statistics = ({
         </button>
       </ButtonsGroup>
 
-      <span />
+      <Charts data={groupedFinancesSummary} />
 
       <Summary>
         <div>
@@ -78,7 +76,7 @@ export const Statistics = ({
 
         <div>
           <span>SAÍDA</span>
-          <strong>- R$ {-groupedFinancesSummary.outcomes.toFixed(2)}</strong>
+          <strong>- R$ {groupedFinancesSummary.outcomes.toFixed(2)}</strong>
         </div>
       </Summary>
     </Container>

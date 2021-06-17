@@ -56,7 +56,7 @@ export const TransactionProvider = ({
           acc.incomes += init.value;
           acc.balance += init.value;
         } else {
-          acc.outcomes -= init.value;
+          acc.outcomes += init.value;
           acc.balance -= init.value;
         }
 
@@ -78,7 +78,7 @@ export const TransactionProvider = ({
         if (init.type === 'income') {
           acc.incomes += init.value;
         } else {
-          acc.outcomes -= init.value;
+          acc.outcomes += init.value;
         }
 
         return acc;
@@ -110,9 +110,7 @@ export const TransactionProvider = ({
 
   useEffect(() => {
     const getTransactions = async (): Promise<void> => {
-      const response = await axios.get<TransactionProps[]>(
-        'http://localhost:3000/api/transactions'
-      );
+      const response = await axios.get<TransactionProps[]>('/api/transactions');
 
       setTransactions([...response.data]);
       setGroupTransactionsByDate([...response.data]);

@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import type { NextApiRequest, NextApiResponse } from 'next';
 
-import firebase from '../../services/firebase';
+import firebase from '../../services/firebaseAdmin';
 import { sortTransactionsByDate } from '../../utils/transactionsOperations';
 
 interface TransactionProps {

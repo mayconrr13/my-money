@@ -59,10 +59,7 @@ export const NewTransactionForm = ({
           createdAt: Date.now(),
         };
 
-        await axios.post(
-          'http://localhost:3000/api/transactions',
-          newTransaction
-        );
+        await axios.post('/api/transactions', newTransaction);
 
         setTransactions([newTransaction, ...transactions]);
         setGroupTransactionsByDate([newTransaction, ...transactions]);
@@ -73,6 +70,7 @@ export const NewTransactionForm = ({
           type: 'income',
           category: 'default',
         });
+        setSelectedTransactionType('income');
 
         onRequestClose();
         return;
